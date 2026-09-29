@@ -8,7 +8,7 @@
 - **MSSV:** 2A202602695
 - **Lớp:** K4-L3A
 - **Repository URL:** https://github.com/VinUni-AI20k/K4-L3-DAY13-TranPhamThaiVu-2A202602695-Monitoring-LLMOps
-- **Commit SHA cuối:** 13b6066
+- **Commit SHA cuối:** 74d936fc421330bb4d9e05b0589aedaa616a2a91
 - **Challenge ID:** day13-k4-l3a-monitoring-llmops-v1
 - **Tên project Langfuse cá nhân:** `day13-k4-l3a-2A202602695`
 
