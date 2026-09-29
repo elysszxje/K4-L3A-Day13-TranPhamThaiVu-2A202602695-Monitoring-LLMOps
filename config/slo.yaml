@@ -7,7 +7,7 @@ primary_slo:
     total_event: 'event == "request_received"'
   target_percent: 99.5
   error_budget_percent: 0.5
-  note: Học viên phải giải thích hoặc điều chỉnh ngưỡng bằng baseline của mình.
+  note: Ngưỡng latency 3000ms và target 99.5% dựa trên baseline thực tế (P95 đạt 350-800ms, tỷ lệ thành công 100%). Error budget 0.5% (5 request lỗi hoặc chậm trên 1000 request trong chu kỳ 28 ngày) dùng làm căn cứ kiểm soát triển khai prompt/model mới và kích hoạt incident response.
 guardrails:
   error_rate_pct_max: 2
   daily_cost_usd_max: 2.5

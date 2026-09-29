@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>K4-L3A Day 13 Monitoring & LLMOps Dashboard</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 24px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .header h1 { margin: 0; font-size: 22px; color: #38bdf8; }
+    .meta-badge {
+      background: #1e293b;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .panel {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .panel-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .panel-unit {
+      font-size: 11px;
+      color: #64748b;
+      background: #0f172a;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .stat-main {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 8px 0;
+    }
+    .stat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      color: #94a3b8;
+    }
+    .stat-val {
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+    .threshold {
+      border-top: 1px dashed #334155;
+      padding-top: 10px;
+      margin-top: 10px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tag-pass {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .tag-fail {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1>K4-L3A Day 13 Monitoring & LLMOps Dashboard</h1>
+      <div style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Source: data/logs.jsonl | Time Range: Last 60 minutes | Refresh: 30s</div>
+    </div>
+    <div class="meta-badge">Snapshot: 2026-09-29 09:27:20 UTC</div>
+  </div>
+
+  
+    <div style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px; color: #fca5a5; display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <strong style="color: #f87171; font-size: 15px;">&#9888;&#65039; INCIDENT DETECTED (Challenge K4-L3A):</strong> 
+        Latency P95 (2653.7 ms) vi phạm nghiêm trọng ngưỡng <strong>Challenge Threshold (2000 ms)</strong>! P99 đạt 3226.02 ms.
+      </div>
+      <span class="tag-fail" style="font-size: 13px;">SLO BREACHED</span>
+    </div>
+        
+
+  <div class="grid">
+    <!-- Panel 1: Latency -->
+    <div class="panel" style="border-color: #ef4444;">
+      <div class="panel-header">
+        <span class="panel-title" style="color: #f87171;">1. Latency percentiles & TTFT</span>
+        <span class="panel-unit">ms</span>
+      </div>
+      <div class="stat-main" style="color: #f87171;">2653.7 <span style="font-size: 14px; font-weight: normal; color: #94a3b8;">(P95)</span></div>
+      <div class="stat-list">
+        <div class="stat-item"><span>P50 Latency:</span><span class="stat-val">355.0 ms</span></div>
+        <div class="stat-item"><span>P95 Latency:</span><span class="stat-val" style="color: #f87171;">2653.7 ms</span></div>
+        <div class="stat-item"><span>P99 Latency:</span><span class="stat-val" style="color: #f87171;">3226.02 ms</span></div>
+        <div class="stat-item"><span>TTFT P95:</span><span class="stat-val">51.0 ms</span></div>
+      </div>
+      <div class="threshold">
+        <span style="font-weight: 600; color: #f87171;">Challenge Threshold: P95 &le; 2000 ms</span>
+        <span class="tag-fail">BREACHED</span>
+      </div>
+    </div>
+
+    <!-- Panel 2: Traffic -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">2. Request Traffic</span>
+        <span class="panel-unit">requests/min</span>
+      </div>
+      <div class="stat-main">27 <span style="font-size: 14px; font-weight: normal; color: #64748b;">(total)</span></div>
+      <div class="stat-list">
+        <div class="stat-item"><span>Total Requests:</span><span class="stat-val">27</span></div>
+        <div class="stat-item"><span>Completed:</span><span class="stat-val">27</span></div>
+        <div class="stat-item"><span>Estimated Rate:</span><span class="stat-val">27 req/min</span></div>
+      </div>
+      <div class="threshold">
+        <span>Target: Rate &ge; 1 req/min</span>
+        <span class="tag-pass">PASSED</span>
+      </div>
+    </div>
+
+    <!-- Panel 3: Errors -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">3. Error Rate & Retrieval</span>
+        <span class="panel-unit">percent</span>
+      </div>
+      <div class="stat-main">0.0% <span style="font-size: 14px; font-weight: normal; color: #64748b;">(errors)</span></div>
+      <div class="stat-list">
+        <div class="stat-item"><span>Error Rate:</span><span class="stat-val">0.0%</span></div>
+        <div class="stat-item"><span>Failed Requests:</span><span class="stat-val">0</span></div>
+        <div class="stat-item"><span>Retrieval Success:</span><span class="stat-val">100.0%</span></div>
+      </div>
+      <div class="threshold">
+        <span>Guardrail: Error &le; 2.0%</span>
+        <span class="tag-pass">PASSED</span>
+      </div>
+    </div>
+
+    <!-- Panel 4: Cost -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">4. Cost over time</span>
+        <span class="panel-unit">USD</span>
+      </div>
+      <div class="stat-main">$0.05689 <span style="font-size: 14px; font-weight: normal; color: #64748b;">(total)</span></div>
+      <div class="stat-list">
+        <div class="stat-item"><span>Window Total Cost:</span><span class="stat-val">$0.05689</span></div>
+        <div class="stat-item"><span>Avg Cost / Request:</span><span class="stat-val">$0.002107</span></div>
+      </div>
+      <div class="threshold">
+        <span>Guardrail: Total &le; $2.50</span>
+        <span class="tag-pass">PASSED</span>
+      </div>
+    </div>
+
+    <!-- Panel 5: Tokens -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">5. Input & Output Tokens</span>
+        <span class="panel-unit">tokens</span>
+      </div>
+      <div class="stat-main">4544 <span style="font-size: 14px; font-weight: normal; color: #64748b;">(total)</span></div>
+      <div class="stat-list">
+        <div class="stat-item"><span>Prompt Tokens (In):</span><span class="stat-val">939</span></div>
+        <div class="stat-item"><span>Completion Tokens (Out):</span><span class="stat-val">3,605</span></div>
+      </div>
+      <div class="threshold">
+        <span>Guardrail: Total &le; 50,000</span>
+        <span class="tag-pass">PASSED</span>
+      </div>
+    </div>
+
+    <!-- Panel 6: Quality -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">6. Quality Proxy</span>
+        <span class="panel-unit">score (0-1)</span>
+      </div>
+      <div class="stat-main">0.87 <span style="font-size: 14px; font-weight: normal; color: #64748b;">(mean)</span></div>
+      <div class="stat-list">
+        <div class="stat-item"><span>Mean Quality Score:</span><span class="stat-val">0.87 / 1.0</span></div>
+        <div class="stat-item"><span>Evaluated Responses:</span><span class="stat-val">27</span></div>
+      </div>
+      <div class="threshold">
+        <span>Guardrail: Mean &ge; 0.75</span>
+        <span class="tag-pass">PASSED</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
